@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const products = require('./products.js');
 
 // app.get('/', (req, res) => res.send('Hello World!'));
 
@@ -8,7 +9,9 @@ const port = 3000;
 
 //Routes for shopping list
 //TODO: Create GET for product list
-
+app.get('/product', (req, res) => {
+  res.send(products);
+});
 
 //Routes for shopping cart
 //TODO: Create GET display cart items
