@@ -1,20 +1,20 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/items', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/shoppingCart', {useNewUrlParser: true});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => console.log('connected to the database'));
 
-var itemSchema = new mongoose.Schema({
+var cartSchema = new mongoose.Schema({
   id: String,
   description: String,
   unit_price: Number,
   volume_discounts: [{
-    amount: Number,
+    qty: Number,
     price: Number
   }]
 });
 
-var Item = mongoose.model('Item', itemSchema);
+var Item = mongoose.model('Item', cartSchema);
 
 module.exports = Item;
