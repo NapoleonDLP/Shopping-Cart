@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
 const products = require('./products.js');
-const { Item, db } = require('./db.js');
+const Item = require('./db.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -20,6 +20,14 @@ app.get('/products', (req, res) => {
 
 //Routes for shopping cart
 //TODO: Create GET display cart items
+app.get('/cart', (req, res) => {
+  Item.find({}, (err, items) => {
+    if (err) {
+      console.log(err)
+    }
+    res.send(items);
+  })
+});
 
 //TODO: Create PUT to add item to cart
 
