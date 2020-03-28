@@ -44,7 +44,7 @@ app.post('/cart', (req, res) => {
 });
 
 //Create DELETE to remove item from cart
-app.delete('/delete', (req, res) => {
+app.delete('/cart', (req, res) => {
   var itemId = req.body.id;
   Item.deleteOne({id:itemId}, (err, doc) => {
     if(err) {
