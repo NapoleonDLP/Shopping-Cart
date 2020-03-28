@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
 const products = require('./products.js');
-const Item = require('./db.js');
+const { Item, db } = require('./db.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,7 +23,7 @@ app.get('/products', (req, res) => {
 
 //TODO: Create PUT to add item to cart
 
-//TODO: Create POST to create a new cart
+//Create POST to add items to cart
 app.post('/cart', (req, res) => {
   let item = Item(req.body);
   item.save((err) => {
@@ -34,7 +34,17 @@ app.post('/cart', (req, res) => {
     res.sendStatus(200);
   });
 });
-//TODO: Create DELETE to remove item from cart
 
+//Create DELETE to remove item from cart
+app.delete('/delete', (req, res) => {
+  var itemId = req.body.id;
+  Item.deleteOne({id:itemId}, (err, doc) => {
+    if(err) {
+      console.log(err)
+      res.sendStatus(500);
+    }
+    res.send(doc);
+  });
+});
 
 app.listen(port, () => console.log(`Listening to port:${port}`));
