@@ -1,16 +1,15 @@
-const path = require("path");
-const webpack = require("webpack");
-
 module.exports = {
-  entry: "./src/index.js",
-  mode: "development",
+  entry: __dirname + '/src/index.jsx',
+  // mode: "development",
   module:{
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude:/(node_module|bower_components)/,
-        loader:"babel-loader",
-        options: { presets: ["@babel/env"] }
+        test: [/\.jsx$/],
+        exclude:/node_modules/,
+        use{
+          loader:"babel-loader",
+          options: { presets: ["@babel/env"] }
+        }
       },
       {
         test: /\.css$/,
@@ -18,17 +17,15 @@ module.exports = {
       }
     ]
   },
-  resolve: { extentions: {"*", ".js", ".jsx"}},
   output:{
-    path: path.resolve(__dirname, "dist"),
-    publicPath: "/dist/",
-    filename: bundle.js
+    filename: 'bundle.js',
+    publicPath: "/dist/"
   }
-  devServer: {
-    contentBase: path.join(__dirname, "public/"),
-    port: 3000,
-    publicPath: "http://localhost:3000/dist/",
-    hotOnly: true
-  },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  // devServer: {
+  //   contentBase: path.join(__dirname, "public/"),
+  //   port: 3000,
+  //   publicPath: "http://localhost:3000/dist/",
+  //   hotOnly: true
+  // },
+  // plugins: [new webpack.HotModuleReplacementPlugin()]
 };
