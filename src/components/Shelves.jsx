@@ -4,23 +4,32 @@ class Shelves extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isFetching: false,
       options:[{id:'a'}, {id:'b'}]
     }
   }
 
   componentDidMount() {
-    fetch('http:localhost:3000/products')
-    .then((response) => response.json())
-    .then((items) => {
-      console.log(items);
-      return items;
+    console.log('ComponentDidMount was called.')
+    this.setState({isFetching: true}, () => {
+      fetch('http://localhost:3000/products')
+      .then(res => res.json())
+      .then(items => {
+        this.setState({ options: items, isFetching: false})
+      })
+      .catch((err) => {
+        console.log('ERROR:', err)
+        return err
+      })
     })
-    .then(items => {
-      this.setState({ options: json});
-    });
   }
 
   render () {
+    console.log("propsItems from shelves:",this.state.options)
+    if (this.state.isFetching === true) {
+      return <h1>Loading...</h1>
+    }
+
     return (
       <ul>
         {this.state.options.map((option) => (
