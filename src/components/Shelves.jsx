@@ -10,7 +10,6 @@ class Shelves extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ComponentDidMount was called.')
     this.setState({isFetching: true}, () => {
       fetch('http://localhost:3000/products')
       .then(res => res.json())
@@ -18,14 +17,12 @@ class Shelves extends React.Component {
         this.setState({ options: items, isFetching: false})
       })
       .catch((err) => {
-        console.log('ERROR:', err)
         return err
       })
     })
   }
 
   render () {
-    console.log("propsItems from shelves:",this.state.options)
     if (this.state.isFetching === true) {
       return <h1>Loading...</h1>
     }
