@@ -4,22 +4,25 @@ const port = 3000;
 const bodyParser = require('body-parser');
 const products = require('./products.js');
 const Item = require('./db.js');
+const path = require('path');
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // app.get('/', (req, res) => res.send('Hello World!'));
 
 //TODO: Serve static HTML page aka empty shopping cart
 
 //Routes for shopping list
-//TODO: Create GET for product list
+//Create GET for product list
 app.get('/products', (req, res) => {
   res.send(products);
 });
 
 //Routes for shopping cart
-//TODO: Create GET display cart items
+//Create GET display cart items
 app.get('/cart', (req, res) => {
   Item.find({}, (err, items) => {
     if (err) {
